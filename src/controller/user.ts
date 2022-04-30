@@ -5,7 +5,7 @@
 import {Context, Next} from 'koa';
 import User from '../db/models/user';
 import md5Password from '../untils/md5Password';
-import gravatar from 'gravatar';
+import gravatar from '../untils/gravatar';
 import {
     validatorUsername,
     validatorPassword
@@ -16,7 +16,7 @@ export async function create(ctx: Context, next: Next) {
         const body = {
             ...ctx.request.body,
             createTime: +new Date(),
-            avatar: gravatar.url(ctx.request.body.url, {protocol: 'https', cdn: 'https://gravatar.loli.net/avatar'})
+            avatar: gravatar(ctx.request.body.email)
         };
         validatorUsername(body.username);
         validatorPassword(body.password);
