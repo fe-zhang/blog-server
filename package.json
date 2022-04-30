@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "crypto": "^1.0.1",
+        "gravatar": "^1.8.2",
         "koa": "^2.13.4",
         "koa-bodyparser": "^4.3.0",
         "koa-onerror": "^4.2.0",
@@ -18,6 +19,7 @@
         "mongoose": "^6.3.1"
     },
     "devDependencies": {
+        "@types/gravatar": "^1.8.3",
         "@types/koa": "^2.13.4",
         "@types/koa-bodyparser": "^4.3.7",
         "@types/koa-router": "^7.4.4",

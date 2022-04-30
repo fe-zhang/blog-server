@@ -9,10 +9,10 @@ export default () => {
         try {
             await next();
         }
-        catch (e) {
+        catch (e: any) {
             ctx.body = {
                 success: 0,
-                message: e
+                message: e instanceof Error ? e.message : e
             }
         }
     }

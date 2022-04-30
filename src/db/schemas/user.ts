@@ -6,7 +6,8 @@ export interface IUser extends Document {
     name: string,
     email: string,
     createTime: number,
-    isAdmin: boolean
+    isAdmin: boolean,
+    avatar: string
 }
 
 
@@ -30,5 +31,8 @@ export const UserSchema: Schema = new Schema({
     },
     isAdmin: {
         type: Boolean
+    },
+    avatar: {
+        type: String
     }
 });
