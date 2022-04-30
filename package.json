@@ -1,0 +1,30 @@
+{
+    "name": "blog-server",
+    "version": "1.0.0",
+    "description": "blog server with koa",
+    "main": "src/app.ts",
+    "repository": "git@github.com:fe-zhang/blog-server.git",
+    "author": "YellinZhang",
+    "license": "MIT",
+    "scripts": {
+        "dev": "NODE_ENV=production nodemon --exec ts-node src/bin/server.ts"
+    },
+    "dependencies": {
+        "crypto": "^1.0.1",
+        "koa": "^2.13.4",
+        "koa-bodyparser": "^4.3.0",
+        "koa-onerror": "^4.2.0",
+        "koa-router": "^10.1.1",
+        "mongoose": "^6.3.1"
+    },
+    "devDependencies": {
+        "@types/koa": "^2.13.4",
+        "@types/koa-bodyparser": "^4.3.7",
+        "@types/koa-router": "^7.4.4",
+        "@types/validator": "^13.7.2",
+        "cross-env": "^7.0.3",
+        "nodemon": "^2.0.16",
+        "ts-node": "^10.7.0",
+        "typescript": "^4.6.4"
+    }
+}
