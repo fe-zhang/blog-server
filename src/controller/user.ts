@@ -5,7 +5,7 @@
 import {Context, Next} from 'koa';
 import User from '../db/models/user';
 import md5Password from '../untils/md5Password';
-import gravatar from '../untils/gravatar';
+import gravatar from '../untils/getAvatar';
 import {
     validatorUsername,
     validatorPassword
