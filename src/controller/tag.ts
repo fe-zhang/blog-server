@@ -4,6 +4,7 @@
 
 import {Context, Next} from 'koa';
 import Tag from '../db/models/tag';
+import {pageQuery} from './DBTools';
 
 export async function create(ctx: Context, next: Next) {
     try {
@@ -12,7 +13,6 @@ export async function create(ctx: Context, next: Next) {
             createTime: +new Date(),
             path: ctx.request.body.path ?? ctx.request.body.name
         };
-        console.log(body)
         const tag = new Tag(body);
         await tag.save();
         ctx.status = 204;
@@ -65,12 +65,19 @@ export async function update(ctx: Context, next: Next) {
 }
 
 export async function getData(ctx: Context, next: Next) {
-    console.log(ctx.request.query);
-    // 返回列表 ，参数有pagenum，pagesize，
-    // try {
-    // }
-    // catch (e: any) {
-    //     throw e.message;
-    // }
+    const {
+        pageNum,
+        pageSize
+    } = ctx.request.query;
+    if (!pageNum || !pageSize) {
+        throw '参数错误';
+    }
+    try {
+        const res = await pageQuery(Tag, +pageNum, +pageSize);
+        ctx.body = res;
+    }
+    catch (e) {
+        throw e;
+    }
 }
 
