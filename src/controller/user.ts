@@ -40,7 +40,7 @@ export async function create(ctx: Context, next: Next) {
             throw new Error('用户名已经存在！');
         }
         else {
-            throw e.message;
+            throw e.message ?? e;
         }
     }
 }

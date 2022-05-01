@@ -25,9 +25,12 @@ export const UserSchema: Schema = new Schema({
         type: String,
         required: true
     },
-    createTime: {
-        type: Number,
+    email: {
+        type: String,
         required: true
+    },
+    createTime: {
+        type: Number
     },
     isAdmin: {
         type: Boolean
