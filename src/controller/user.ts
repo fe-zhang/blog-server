@@ -2,7 +2,7 @@
  * 用户方法
  */
 
-import {Context, Next} from 'koa';
+import {Context} from 'koa';
 import User from '../db/models/user';
 import md5Password from '../untils/md5Password';
 import getAvatar from '../untils/getAvatar';
@@ -15,7 +15,7 @@ import {
     validatorPassword
 } from '../untils/validator';
 
-export async function create(ctx: Context, next: Next) {
+export async function create(ctx: Context) {
     const body = {
         ...ctx.request.body,
         avatar: getAvatar(ctx.request.body.email)
@@ -33,7 +33,7 @@ export async function create(ctx: Context, next: Next) {
     ctx.body = await createUser(User, body);
 }
 
-export async function del(ctx: Context, next: Next) {
+export async function del(ctx: Context) {
     await delData(User, ctx.request.body.id);
     ctx.status = 204;
 }
