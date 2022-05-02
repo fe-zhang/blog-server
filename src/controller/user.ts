@@ -22,11 +22,11 @@ export async function create(ctx: Context) {
     };
     validatorUsername(body.username);
     validatorPassword(body.password);
-    const total = await User.find().count();
+    const total = await User.find({auth: 1}).count();
 
-    // 没有用户初次创建是管理员账户
-    if (!total) {
-        body.isAdmin = true;
+    // 如果已经有管理账户则不允许再次添加管理账户
+    if (total && body.auth) {
+        body.auth = 2;
     }
     // 密码加密
     body.password = md5Password(body.password);

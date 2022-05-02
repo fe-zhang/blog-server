@@ -6,7 +6,8 @@ export interface IUser extends Document {
     name: string,
     email: string,
     createTime: number,
-    isAdmin: boolean,
+    // 权限 1 最高权限 2 普通用户
+    auth: number,
     avatar: string
 }
 
@@ -27,14 +28,16 @@ export const UserSchema: Schema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     createTime: {
         type: Number,
         default: Date.now()
     },
-    isAdmin: {
-        type: Boolean
+    auth: {
+        type: Number,
+        default: 2
     },
     avatar: {
         type: String
