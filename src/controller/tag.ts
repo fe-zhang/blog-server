@@ -1,83 +1,44 @@
 /**
- * 标签方法
+ * 标签
  */
 
 import {Context, Next} from 'koa';
 import Tag from '../db/models/tag';
-import {pageQuery} from './DBTools';
+import {
+    create as createData,
+    query as queryData,
+    del as delData,
+    update as updateData
+} from '../untils/crud';
 
-export async function create(ctx: Context, next: Next) {
-    try {
-        const body = {
-            ...ctx.request.body,
-            createTime: +new Date(),
-            path: ctx.request.body.path ?? ctx.request.body.name
-        };
-        const tag = new Tag(body);
-        await tag.save();
-        ctx.status = 204;
-    }
-    catch (e: any) {
-        if (e?.code === 11000) {
-            throw new Error(`参数重复，${JSON.stringify(e.keyValue)}`);
-        }
-        else {
-            throw e.message ?? e;
-        }
-    }
+export async function create(ctx: Context) {
+    const body = ctx.request.body;
+    ctx.body = await createData(Tag, {
+        ...body,
+        alias: body.alias ?? body.tag
+    });
 }
 
-export async function del(ctx: Context, next: Next) {
-    try {
-        const id = ctx.request.body.id;
-        if (!id) {
-            throw new Error('缺少必要参数标签id');
-        }
-        await Tag.deleteOne({_id: id});
-        ctx.status = 204;
-    }
-    catch (e: any) {
-        throw e.message;
-    }
+export async function del(ctx: Context) {
+    await delData(Tag, ctx.request.body.id);
+    ctx.status = 204;
 }
 
-export async function update(ctx: Context, next: Next) {
-    try {
-        const id = ctx.request.body.id;
-        const body = {
-            name: ctx.request.body.name,
-            path: ctx.request.body.path
-        };
-        if (!id) {
-            throw new Error('缺少必要参数标签id');
-        }
-        const res = await Tag.findOneAndUpdate(
-            {_id: id},
-            {
-                $set: body
-            }
-        );
-        ctx.body = res;
-    }
-    catch (e: any) {
-        throw e.message;
-    }
+export async function update(ctx: Context) {
+    const id = ctx.request.body.id;
+    const body = {
+        tag: ctx.request.body.tag,
+        alias: ctx.request.body.alias
+    };
+    await updateData(
+        Tag,
+        id,
+        body
+    );
+    ctx.body = 204;
 }
 
-export async function getData(ctx: Context, next: Next) {
-    const {
-        pageNum,
-        pageSize
-    } = ctx.request.query;
-    if (!pageNum || !pageSize) {
-        throw '参数错误';
-    }
-    try {
-        const res = await pageQuery(Tag, +pageNum, +pageSize);
-        ctx.body = res;
-    }
-    catch (e) {
-        throw e;
-    }
+export async function query(ctx: Context) {
+    ctx.body = await queryData(Tag, ctx.request.query);
 }
 

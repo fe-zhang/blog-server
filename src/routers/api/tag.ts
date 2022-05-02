@@ -7,7 +7,7 @@ import {
     create,
     del,
     update,
-    getData
+    query
 } from '../../controller/tag';
 
 const tag = new Router();
@@ -19,6 +19,6 @@ tag.delete('/', del);
 
 tag.put('/', update);
 
-tag.get('/', getData);
+tag.get('/', query);
 
 export default tag;

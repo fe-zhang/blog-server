@@ -1,12 +1,12 @@
 import {Document, Schema} from 'mongoose';
 
-export interface ITag extends Document {
-    tag: string;
+export interface ICategory extends Document {
+    category: string;
     alias: string;
 }
 
-export const TagSchema: Schema = new Schema({
-    tag: {
+export const CategorySchema: Schema = new Schema({
+    category: {
         type: String,
         required: true,
         unique: true

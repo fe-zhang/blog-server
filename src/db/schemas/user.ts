@@ -1,4 +1,4 @@
-import {Document, Schema} from 'mongoose';
+import mongoose, {Document, Schema} from 'mongoose';
 
 export interface IUser extends Document {
     username: string;
@@ -30,7 +30,8 @@ export const UserSchema: Schema = new Schema({
         required: true
     },
     createTime: {
-        type: Number
+        type: Number,
+        default: Date.now()
     },
     isAdmin: {
         type: Boolean
